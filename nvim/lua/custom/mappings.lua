@@ -30,6 +30,32 @@ M.dap = {
       ":DiffviewOpen HEAD~2<CR>",
       "Git Last Commit",
     },
+    ["<leader>tt"] = {
+      function()
+        require("neotest").run.run()
+      end,
+      "Run nearest test",
+    },
+    ["<leader>tf"] = {
+      function()
+        require("neotest").run.run(vim.fn.expand "%")
+      end,
+      "Run file test",
+    },
+    ["<leader>ta"] = {
+      function()
+        require("neotest").run.run(vim.loop.cwd())
+      end,
+      "Run All Test Files",
+    },
+    ["<leader>to"] = {
+      ":Neotest output<CR>",
+      "Test output",
+    },
+    ["<leader>ts"] = {
+      ":Neotest summary<CR>",
+      "Test summary",
+    },
   }
 }
 
