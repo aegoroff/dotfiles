@@ -11,9 +11,25 @@ local plugins = {
         "vue-language-server",
         "prettier",
         "js-debug-adapter",
-        "gopls"
+        "gopls",
+        "clang-format",
+        "codelldb",
       },
     },
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap"
+    },
+    opts = {
+      handlers = {},
+      ensure_installed = {
+        "codelldb",
+      }
+    }
   },
   {
     "nvim-treesitter/nvim-treesitter",
