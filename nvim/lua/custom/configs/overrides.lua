@@ -15,6 +15,7 @@ M.treesitter = {
     "prisma",
     "rust",
     "go",
+    "zig",
   },
   indent = {
     enable = true,
