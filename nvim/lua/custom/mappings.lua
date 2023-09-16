@@ -70,4 +70,14 @@ M.crates = {
   }
 }
 
+M.packageinfo ={
+  n = {
+    ["<leader>nu"] = {
+      function ()
+        require("package-info").update()
+      end,
+      "Update dependency"
+    }
+  }
+}
 return M

@@ -14,6 +14,7 @@ local plugins = {
         "gopls",
         "clang-format",
         "codelldb",
+        "zls"
       },
     },
   },
@@ -132,6 +133,18 @@ local plugins = {
     lazy = false
   },
   {
+  {
+    "vuki656/package-info.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    lazy = true,
+    config = function ()
+      require('package-info').setup({
+          auto_enable = true
+        })
+    end
+  },
     "sindrets/diffview.nvim",
     lazy = false
   },
