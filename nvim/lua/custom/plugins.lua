@@ -138,12 +138,10 @@ local plugins = {
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
-    lazy = true,
-    config = function ()
-      require('package-info').setup({
-          auto_enable = true
-        })
-    end
+    lazy = false,
+    opts = {
+        auto_enable = true
+    },
   },
     "sindrets/diffview.nvim",
     lazy = false
