@@ -16,6 +16,7 @@ M.treesitter = {
     "rust",
     "go",
     "zig",
+    "bash",
   },
   indent = {
     enable = true,

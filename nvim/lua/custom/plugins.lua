@@ -14,7 +14,8 @@ local plugins = {
         "gopls",
         "clang-format",
         "codelldb",
-        "zls"
+        "zls",
+        "bash-language-server"
       },
     },
   },

@@ -1,7 +1,7 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.ui = { theme = 'github_dark' }
+M.ui = { theme = 'bearded-arc' }
 M.plugins = 'custom.plugins'
 M.mappings = require "custom.mappings"
 
