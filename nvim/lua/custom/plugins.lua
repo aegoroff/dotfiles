@@ -15,7 +15,8 @@ local plugins = {
         "clang-format",
         "codelldb",
         "zls",
-        "bash-language-server"
+        "bash-language-server",
+        "shfmt"
       },
     },
   },
