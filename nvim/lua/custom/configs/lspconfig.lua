@@ -49,8 +49,21 @@ lspconfig.clangd.setup{
     on_attach(client, bufnr)
   end,
   capabilities = capabilities,
+  init_options = {
+    usePlaceholders = true,
+    completeUnimported = true,
+    clangdFileStatus = true,
+    semanticHighlighting = true
+  },
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed",
+    "--function-arg-placeholders"
+  },
 }
-
 
 lspconfig.zls.setup{
   on_attach = on_attach,
