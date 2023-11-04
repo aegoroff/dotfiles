@@ -1,3 +1,3 @@
 #!/bin/bash
-
-cp -v -r ./nvim/lua/custom/ ~/.config/nvim/lua/custom/
+target=~/.config/nvim/lua/custom/
+[[ -d "$target" ]] && cp -v -r ./nvim/lua/custom/ "$target"
