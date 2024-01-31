@@ -9,6 +9,12 @@ dap.adapters["pwa-node"] = {
   }
 }
 
+dap.adapters.codelldb = {
+  type = 'server',
+  host = '127.0.0.1',
+  port = 13000
+}
+
 for _, language in ipairs { "typescript", "javascript" } do
   dap.configurations[language] = {
     {
@@ -21,3 +27,5 @@ for _, language in ipairs { "typescript", "javascript" } do
     },
   }
 end
+
+
