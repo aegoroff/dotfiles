@@ -67,6 +67,13 @@ local plugins = {
     end
   },
   {
+    "lervag/vimtex",
+    lazy = false,
+    init = function ()
+      vim.g.vimtex_view_method = "zathura"
+    end
+  },
+  {
     "simrat39/rust-tools.nvim",
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
