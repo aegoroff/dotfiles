@@ -1,6 +1,19 @@
-local overrides = require "custom.configs.overrides"
+local overrides = require "configs.overrides"
 
-local plugins = {
+return {
+  {
+    "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
+  },
+
+  -- These are some examples, uncomment them if you want to see them work!
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "configs.lspconfig"
+    end,
+  },
   {
     "williamboman/mason.nvim",
     opts = {
@@ -42,21 +55,14 @@ local plugins = {
     "kevinhwang91/nvim-bqf",
     ft = { "qf" },
     config = function ()
-      require "custom.configs.bqf"
+      require "configs.bqf"
     end
-  },
-  {
-    "neovim/nvim-lspconfig",
-    config = function ()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
-    end,
   },
   {
     "nvimtools/none-ls.nvim",
     event = "VeryLazy",
     opts = function ()
-      return require "custom.configs.null-ls"
+      return require "configs.null-ls"
     end
   },
   {
@@ -78,7 +84,7 @@ local plugins = {
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
     opts = function ()
-      return require "custom.configs.rust-tools"
+      return require "configs.rust-tools"
     end,
     config = function (_, opts)
       require('rust-tools').setup(opts)
@@ -89,8 +95,8 @@ local plugins = {
   {
     "mfussenegger/nvim-dap",
     config = function ()
-      require "custom.configs.dap"
-      require("core.utils").load_mappings("dap")
+      require "configs.dap"
+      -- obsolete from 2.0 require("core.utils").load_mappings("dap")
     end
   },
   {
@@ -124,7 +130,7 @@ local plugins = {
   {
     "hrsh7th/nvim-cmp",
     opts = function ()
-      local M = require "plugins.configs.cmp"
+      local M = require "nvchad.configs.cmp"
       table.insert(M.sources, {name = "crates"})
       return M
     end
@@ -220,4 +226,3 @@ local plugins = {
     end,
   },
 }
-return plugins
