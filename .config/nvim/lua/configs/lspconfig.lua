@@ -58,11 +58,6 @@ lspconfig.vuels.setup {
   capabilities = capabilities,
 }
 
-lspconfig.rust.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
 lspconfig.clangd.setup {
   on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
