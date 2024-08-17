@@ -80,14 +80,10 @@ return {
     end,
   },
   {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    dependencies = "neovim/nvim-lspconfig",
-    config = function(_, opts)
-      require("rust-tools").setup(opts)
-      require("rust-tools").hover_actions.hover_actions()
-      require("rust-tools").hover_range.hover_range()
-    end,
+    "mrcjkb/rustaceanvim",
+    version = "^5",
+    ft = { "rust" },
+    lazy = false,
   },
   {
     "mfussenegger/nvim-dap",

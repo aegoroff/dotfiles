@@ -2,6 +2,7 @@ require "nvchad.mappings"
 
 -- add yours here
 
+local bufnr = vim.api.nvim_get_current_buf()
 local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -42,3 +43,6 @@ map("n", "<leader>nu", function()
     require("package-info").update()
 end, { desc = "Update dependency" })
 
+map("n", "<leader>la", function()
+    vim.cmd.RustLsp('codeAction')
+end, { silent = true, buffer = bufnr })
