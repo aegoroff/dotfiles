@@ -43,6 +43,6 @@ map("n", "<leader>nu", function()
     require("package-info").update()
 end, { desc = "Update dependency" })
 
-map("n", "<leader>la", function()
+map("n", "<leader>ca", function()
     vim.cmd.RustLsp('codeAction')
 end, { silent = true, buffer = bufnr })
