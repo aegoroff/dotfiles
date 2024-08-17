@@ -15,5 +15,7 @@ fi
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+alias ls='exa'
+alias k='kubectl'
 alias fs="fzf --preview 'bat --color=always {1}'"
 eval "$(zoxide init --cmd cd zsh)"

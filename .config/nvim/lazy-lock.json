@@ -40,7 +40,7 @@
   "rustaceanvim": { "branch": "master", "commit": "7cba8e599deca98d4b44cac1bcbd720c62937d90" },
   "telescope.nvim": { "branch": "master", "commit": "5972437de807c3bc101565175da66a1aa4f8707a" },
   "ui": { "branch": "v2.5", "commit": "8e21655facae57c710a16a48a45f40176c37e999" },
-  "vim-flog": { "branch": "master", "commit": "a33aceb3362654ce4dbda39946e523ef734f1d8d" },
+  "vim-flog": { "branch": "master", "commit": "25a551c6054bcd10d389350ab75985bb69486846" },
   "vim-fugitive": { "branch": "master", "commit": "0444df68cd1cdabc7453d6bd84099458327e5513" },
   "vimtex": { "branch": "master", "commit": "00c23ab836dceeffadc05d0c4f2ceca1e02810a4" },
   "which-key.nvim": { "branch": "main", "commit": "6c1584eb76b55629702716995cca4ae2798a9cca" }
