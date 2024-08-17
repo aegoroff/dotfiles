@@ -29,7 +29,7 @@ return {
         "codelldb",
         "zls",
         "bash-language-server",
-        "shfmt"
+        "shfmt",
       },
     },
   },
@@ -38,14 +38,14 @@ return {
     event = "VeryLazy",
     dependencies = {
       "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap"
+      "mfussenegger/nvim-dap",
     },
     opts = {
       handlers = {},
       ensure_installed = {
         "codelldb",
-      }
-    }
+      },
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -54,56 +54,53 @@ return {
   {
     "kevinhwang91/nvim-bqf",
     ft = { "qf" },
-    config = function ()
+    config = function()
       require "configs.bqf"
-    end
+    end,
   },
   {
     "nvimtools/none-ls.nvim",
     event = "VeryLazy",
-    opts = function ()
+    opts = function()
       return require "configs.null-ls"
-    end
+    end,
   },
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function ()
+    init = function()
       vim.g.rustfmt_autosave = 1
-    end
+    end,
   },
   {
     "lervag/vimtex",
     lazy = false,
-    init = function ()
+    init = function()
       vim.g.vimtex_view_method = "zathura"
-    end
+    end,
   },
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
-    opts = function ()
-      return require "configs.rust-tools"
+    config = function(_, opts)
+      require("rust-tools").setup(opts)
+      require("rust-tools").hover_actions.hover_actions()
+      require("rust-tools").hover_range.hover_range()
     end,
-    config = function (_, opts)
-      require('rust-tools').setup(opts)
-      require('rust-tools').hover_actions.hover_actions()
-      require('rust-tools').hover_range.hover_range()
-    end
   },
   {
     "mfussenegger/nvim-dap",
-    config = function ()
+    config = function()
       require "configs.dap"
       -- obsolete from 2.0 require("core.utils").load_mappings("dap")
-    end
+    end,
   },
   {
     "saecki/crates.nvim",
-    ft = {"rust", "toml"},
-    config = function (_, opts)
-      local crates = require('crates')
+    ft = { "rust", "toml" },
+    config = function(_, opts)
+      local crates = require "crates"
       crates.setup(opts)
       crates.show()
     end,
@@ -111,33 +108,33 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     event = "VeryLazy",
-    dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
-    config = function ()
-      local dap = require("dap")
-      local dapui = require("dapui")
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    config = function()
+      local dap = require "dap"
+      local dapui = require "dapui"
       require("dapui").setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function ()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
-      dap.listeners.before.event_terminated["dapui_config"] = function ()
+      dap.listeners.before.event_terminated["dapui_config"] = function()
         dapui.close()
       end
-      dap.listeners.before.event_exited["dapui_config"] = function ()
+      dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
-    end
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
-    opts = function ()
+    opts = function()
       local M = require "nvchad.configs.cmp"
-      table.insert(M.sources, {name = "crates"})
+      table.insert(M.sources, { name = "crates" })
       return M
-    end
+    end,
   },
   {
     "qnighy/lalrpop.vim",
-    ft = {"lalrpop"}
+    ft = { "lalrpop" },
   },
   { "tpope/vim-fugitive" },
   {
@@ -145,21 +142,21 @@ return {
     dependencies = {
       "tpope/vim-fugitive",
     },
-    lazy = false
-  },
-  {
-  {
-    "vuki656/package-info.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
     lazy = false,
-    opts = {
-        auto_enable = true
-    },
   },
+  {
+    {
+      "vuki656/package-info.nvim",
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+      },
+      lazy = false,
+      opts = {
+        auto_enable = true,
+      },
+    },
     "sindrets/diffview.nvim",
-    lazy = false
+    lazy = false,
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -170,22 +167,21 @@ return {
     event = "VeryLazy",
     config = function()
       -- get neotest namespace (api call creates or returns namespace)
-      local neotest_ns = vim.api.nvim_create_namespace("neotest")
+      local neotest_ns = vim.api.nvim_create_namespace "neotest"
       vim.diagnostic.config({
         virtual_text = {
           format = function(diagnostic)
-            local message =
-              diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
             return message
           end,
         },
       }, neotest_ns)
-      require("neotest").setup({
+      require("neotest").setup {
         -- your neotest config here
         adapters = {
-          require("neotest-go"),
+          require "neotest-go",
         },
-      })
+      }
     end,
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -196,11 +192,11 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    config = function ()
+    config = function()
       require("gitsigns").setup()
       vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
       vim.keymap.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", {})
-    end
+    end,
   },
   {
     "kdheepak/lazygit.nvim",
@@ -219,10 +215,10 @@ return {
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
-      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
     config = function()
-      require("telescope").load_extension("lazygit")
+      require("telescope").load_extension "lazygit"
     end,
   },
 }

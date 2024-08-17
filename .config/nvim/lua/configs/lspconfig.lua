@@ -22,44 +22,49 @@ local capabilities = nvlsp.capabilities
 local function organize_imports()
   local params = {
     command = "_typescript.organizeImports",
-    arguments = {vim.api.nvim_buf_get_name(0)}
+    arguments = { vim.api.nvim_buf_get_name(0) },
   }
   vim.lsp.buf.execute_command(params)
 end
 
-lspconfig.tsserver.setup{
+lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
     preferences = {
       disableSuggestions = false,
-    }
+    },
   },
   commands = {
     OrganizeImports = {
       organize_imports,
       description = "Organize Imports",
-    }
-  }
+    },
+  },
 }
 
-lspconfig.angularls.setup{
+lspconfig.angularls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
-lspconfig.gopls.setup{
+lspconfig.gopls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
-lspconfig.vuels.setup{
+lspconfig.vuels.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
-lspconfig.clangd.setup{
-  on_attach = function (client, bufnr)
+lspconfig.rust.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+lspconfig.clangd.setup {
+  on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
     on_attach(client, bufnr)
   end,
@@ -68,7 +73,7 @@ lspconfig.clangd.setup{
     usePlaceholders = true,
     completeUnimported = true,
     clangdFileStatus = true,
-    semanticHighlighting = true
+    semanticHighlighting = true,
   },
   cmd = {
     "clangd",
@@ -76,16 +81,16 @@ lspconfig.clangd.setup{
     "--clang-tidy",
     "--header-insertion=iwyu",
     "--completion-style=detailed",
-    "--function-arg-placeholders"
+    "--function-arg-placeholders",
   },
 }
 
-lspconfig.zls.setup{
+lspconfig.zls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
-lspconfig.bashls.setup{
+lspconfig.bashls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
