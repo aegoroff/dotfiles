@@ -42,7 +42,3 @@ end, { desc = "Upgrage crates" })
 map("n", "<leader>nu", function()
     require("package-info").update()
 end, { desc = "Update dependency" })
-
-map("n", "<leader>a", function()
-    vim.cmd.RustLsp('codeAction')
-end, { silent = true, buffer = bufnr })

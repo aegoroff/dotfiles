@@ -80,11 +80,6 @@ return {
     end,
   },
   {
-    "mrcjkb/rustaceanvim",
-    version = "^5",
-    lazy = false,
-  },
-  {
     "mfussenegger/nvim-dap",
     config = function()
       require "configs.dap"
