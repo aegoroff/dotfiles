@@ -2,7 +2,6 @@ require "nvchad.mappings"
 
 -- add yours here
 
-local bufnr = vim.api.nvim_get_current_buf()
 local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
