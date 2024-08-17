@@ -4,7 +4,7 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls" }
+local servers = { "html", "cssls", "gopls", "vuels", "angularls", "zls", "bashls", "rust_analyzer" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -43,21 +43,6 @@ lspconfig.tsserver.setup {
   },
 }
 
-lspconfig.angularls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.gopls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.vuels.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
 lspconfig.clangd.setup {
   on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
@@ -78,19 +63,4 @@ lspconfig.clangd.setup {
     "--completion-style=detailed",
     "--function-arg-placeholders",
   },
-}
-
-lspconfig.zls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.bashls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.rust_analyzer.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
 }
