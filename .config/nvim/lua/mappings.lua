@@ -42,3 +42,5 @@ end, { desc = "Upgrage crates" })
 map("n", "<leader>nu", function()
     require("package-info").update()
 end, { desc = "Update dependency" })
+
+map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
