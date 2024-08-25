@@ -9,11 +9,11 @@ config.enable_wayland = false
 --config.color_scheme = 'Alabaster'
 --config.color_scheme = 'Selenized Dark (Gogh)'
 --config.color_scheme = 'Selenized Light (Gogh)'
-config.color_scheme = 'Vs Code Light+ (Gogh)'
+--config.color_scheme = 'Vs Code Light+ (Gogh)'
 --config.color_scheme = 'Everforest Light Hard (Gogh)'
 --config.color_scheme = 'Everforest Light Soft (Gogh)'
 --config.color_scheme = 'Catppuccin Latte'
-
+config.color_scheme = 'Catppuccin Frappe'
 config.font = wezterm.font 'JetBrainsMono Nerd Font'
 --config.freetype_load_target = "HorizontalLcd"
 --config.freetype_render_target = 'HorizontalLcd'
