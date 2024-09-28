@@ -16,22 +16,6 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "rust-analyzer",
-        "angular-language-server",
-        "typescript-language-server",
-        "vue-language-server",
-        "prettier",
-        "js-debug-adapter",
-        "gopls",
-        "clang-format",
-        "codelldb",
-        "zls",
-        "bash-language-server",
-        "shfmt",
-      },
-    },
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
