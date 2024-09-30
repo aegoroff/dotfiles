@@ -5,7 +5,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "ashes",
+  theme = "solarized_osaka",
 
   -- hl_override = {
   -- 	Comment = { italic = true },
