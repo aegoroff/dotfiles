@@ -223,4 +223,8 @@ return {
       require("telescope").load_extension "lazygit"
     end,
   },
+  {
+    "cordx56/rustowl",
+    dependencies = { "neovim/nvim-lspconfig" }
+  },
 }
