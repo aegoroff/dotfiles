@@ -1,2 +1,3 @@
 #theme = FishTank
-theme = MaterialDarker
+#theme = MaterialDarker
+theme = Adwaita
