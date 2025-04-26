@@ -19,3 +19,4 @@ alias ls='exa'
 alias k='kubectl'
 alias fs="fzf --preview 'bat --color=always {1}'"
 eval "$(zoxide init --cmd cd zsh)"
+[[ "$TERM_PROGRAM" == "vscode" ]] && unset ARGV0
