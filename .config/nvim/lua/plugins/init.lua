@@ -70,7 +70,6 @@ return {
     config = function ()
       local mason_registry = require('mason-registry')
       local codelldb = mason_registry.get_package("codelldb")
-      --local extension_path = codelldb:get_install_path() .. "/extension/"
       local extension_path
       if require('mason.version').MAJOR_VERSION > 1 then
         extension_path = vim.fs.joinpath(vim.fn.expand('$MASON'), 'packages', codelldb.name, 'extension')
