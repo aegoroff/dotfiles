@@ -1,19 +1,17 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
-
 -- EXAMPLE
 local servers = { "html", "cssls", "gopls", "vuels", "angularls", "zls", "bashls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = nvlsp.on_attach,
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
-  }
+  })
 end
 
 local on_attach = nvlsp.on_attach
@@ -27,7 +25,7 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-lspconfig.ts_ls.setup {
+vim.lsp.config('ts_ls', {
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
@@ -41,9 +39,9 @@ lspconfig.ts_ls.setup {
       description = "Organize Imports",
     },
   },
-}
+})
 
-lspconfig.clangd.setup {
+vim.lsp.config('clangd', {
   on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
     on_attach(client, bufnr)
@@ -63,4 +61,4 @@ lspconfig.clangd.setup {
     "--completion-style=detailed",
     "--function-arg-placeholders",
   },
-}
+})
