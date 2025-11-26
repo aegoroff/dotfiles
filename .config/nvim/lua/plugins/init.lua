@@ -232,4 +232,10 @@ return {
     "cordx56/rustowl",
     dependencies = { "neovim/nvim-lspconfig" }
   },
+  {
+    "aspeddro/gitui.nvim",
+    config = function()
+      require("gitui").setup()
+    end,
+  },
 }

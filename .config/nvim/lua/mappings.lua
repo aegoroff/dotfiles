@@ -43,6 +43,9 @@ map("n", "<leader>nu", function()
 end, { desc = "Update dependency" })
 
 map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+map("n", "<leader>lt", function ()
+  require("gitui").open()
+end, { desc = "Gitui" })
 
 map('n', "<leader>a", function ()
       vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
