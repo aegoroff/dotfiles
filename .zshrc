@@ -20,3 +20,10 @@ alias k='kubectl'
 alias fs="fzf --preview 'bat --color=always {1}'"
 eval "$(zoxide init --cmd cd zsh)"
 [[ "$TERM_PROGRAM" == "vscode" ]] && unset ARGV0
+
+# bun completions
+[ -s "/home/egr/.bun/_bun" ] && source "/home/egr/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
