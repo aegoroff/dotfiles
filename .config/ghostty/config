@@ -2,6 +2,7 @@
 #theme = MaterialDarker
 #theme = "iTerm2 Solarized Light"
 #theme = "3024 Day"
-theme = "Adwaita"
+#theme = "Adwaita"
+theme = "Oceanic Next"
 font-family = "MesloLGS NF"
 font-size = 12
