@@ -3,6 +3,7 @@
 #theme = "iTerm2 Solarized Light"
 #theme = "3024 Day"
 #theme = "Adwaita"
-theme = "Oceanic Next"
+#theme = "Oceanic Next"
+theme = Adwaita
 font-family = "MesloLGS NF"
 font-size = 12
