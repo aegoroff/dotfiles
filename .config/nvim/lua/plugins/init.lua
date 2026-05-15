@@ -46,6 +46,8 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",                -- Обязательно для стабильной работы в NVIM v0.12+
+    build = ":TSUpdate",            -- Автоматическое обновление парсеров при апдейте плагина
     opts = overrides.treesitter,
   },
   {
