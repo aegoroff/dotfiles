@@ -1,5 +1,5 @@
--- Shims for plugins that still use APIs deprecated in Neovim 0.12.
--- Remove this file once rustaceanvim and rustowl ship fixes upstream.
+-- Shims for plugins that still use APIs deprecated in Neovim 0.12+.
+-- Remove this file once upstream plugins ship fixes.
 
 local validate = vim.validate
 
@@ -25,4 +25,17 @@ if vim.lsp.get_buffers_by_client_id then
     end
     return get_buffers_by_client_id(client_id)
   end
+end
+
+local str_utfindex = vim.str_utfindex
+
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.str_utfindex(s, encoding, index, strict_indexing)
+  if encoding == nil then
+    return str_utfindex(s, "utf-8")
+  end
+  if type(encoding) == "number" then
+    return str_utfindex(s, "utf-8", encoding, index)
+  end
+  return str_utfindex(s, encoding, index, strict_indexing)
 end
