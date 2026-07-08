@@ -28,7 +28,7 @@ map("n", "<leader>tf", function()
 end, { desc = "Run file test" })
 
 map("n", "<leader>ta", function()
-    require("neotest").run.run(vim.loop.cwd())
+    require("neotest").run.run(vim.uv.cwd())
 end, { desc = "Run All Test Files" })
 
 map("n", "<leader>to", ":Neotest output<CR>", { desc = "Test output" })
@@ -36,7 +36,7 @@ map("n", "<leader>ts", ":Neotest summary<CR>", { desc = "Test summary" })
 
 map("n", "<leader>rcu", function()
     require('crates').upgrade_all_crates()
-end, { desc = "Upgrage crates" })
+end, { desc = "Upgrade crates" })
 
 map("n", "<leader>nu", function()
     require("package-info").update()

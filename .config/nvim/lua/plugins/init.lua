@@ -2,15 +2,10 @@ local overrides = require "configs.overrides"
 
 return {
   {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
-  },
-  {
-   "nvchad/ui",
+    "nvchad/ui",
     config = function()
       require "nvchad"
-    end
+    end,
   },
   {
     "nvchad/base46",
@@ -19,26 +14,61 @@ return {
       require("base46").load_all_highlights()
     end,
   },
-  -- These are some examples, uncomment them if you want to see them work!
+  {
+    "folke/which-key.nvim",
+    lazy = false,
+    opts = function()
+      dofile(vim.g.base46_cache .. "whichkey")
+      return {}
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = require "configs.conform",
+  },
   {
     "neovim/nvim-lspconfig",
+    event = "User FilePost",
     config = function()
       require "configs.lspconfig"
     end,
   },
   {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+      ensure_installed = {
+        "html",
+        "cssls",
+        "gopls",
+        "vue_ls",
+        "vtsls",
+        "angularls",
+        "zls",
+        "bashls",
+        "ts_ls",
+        "clangd",
+        "lua_ls",
+        "stylua",
+        "prettier",
+        "shfmt",
+        "clang_format",
+        "vue-language-server",
+      },
+      automatic_enable = false,
+    },
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
     event = "VeryLazy",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "mfussenegger/nvim-dap",
     },
     opts = {
-      handlers = {},
       ensure_installed = {
         "codelldb",
       },
@@ -46,9 +76,17 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",                -- Обязательно для стабильной работы в NVIM v0.12+
-    build = ":TSUpdate",            -- Автоматическое обновление парсеров при апдейте плагина
-    opts = overrides.treesitter,
+    branch = "main",
+    build = ":TSUpdate",
+    lazy = false,
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo", "TSUpdate" },
+    opts = function()
+      return require "configs.treesitter"
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter").setup()
+      require("nvim-treesitter").install(opts.ensure_installed)
+    end,
   },
   {
     "kevinhwang91/nvim-bqf",
@@ -65,36 +103,14 @@ return {
     end,
   },
   {
-    'mrcjkb/rustaceanvim',
-    version = '^6', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    "mrcjkb/rustaceanvim",
+    version = "^6",
+    lazy = false,
     ft = "rust",
-    config = function ()
-      local mason_registry = require('mason-registry')
-      local codelldb = mason_registry.get_package("codelldb")
-      local extension_path
-      if require('mason.version').MAJOR_VERSION > 1 then
-        extension_path = vim.fs.joinpath(vim.fn.expand('$MASON'), 'packages', codelldb.name, 'extension')
-      else
-        extension_path = vim.fs.joinpath(codelldb:get_install_path(), 'extension')
-      end
-      local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path.. "lldb/lib/liblldb.dylib"
-      local cfg = require('rustaceanvim.config')
-
-      vim.g.rustaceanvim = {
-        dap = {
-          adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-        },
-      }
-    end
   },
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
-    end,
   },
   {
     "lervag/vimtex",
@@ -107,17 +123,14 @@ return {
     "mfussenegger/nvim-dap",
     config = function()
       require "configs.dap"
-      -- obsolete from 2.0 require("core.utils").load_mappings("dap")
     end,
   },
   {
     "saecki/crates.nvim",
     ft = { "rust", "toml" },
-    config = function(_, opts)
-      local crates = require "crates"
-      crates.setup(opts)
-      crates.show()
-    end,
+    opts = {
+      autoload = true,
+    },
   },
   {
     "rcarriga/nvim-dap-ui",
@@ -126,7 +139,7 @@ return {
     config = function()
       local dap = require "dap"
       local dapui = require "dapui"
-      require("dapui").setup()
+      dapui.setup()
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
@@ -159,16 +172,16 @@ return {
     lazy = false,
   },
   {
-    {
-      "vuki656/package-info.nvim",
-      dependencies = {
-        "MunifTanjim/nui.nvim",
-      },
-      lazy = false,
-      opts = {
-        auto_enable = true,
-      },
+    "vuki656/package-info.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
     },
+    lazy = false,
+    opts = {
+      auto_enable = true,
+    },
+  },
+  {
     "sindrets/diffview.nvim",
     lazy = false,
   },
@@ -180,7 +193,6 @@ return {
     "nvim-neotest/neotest",
     event = "VeryLazy",
     config = function()
-      -- get neotest namespace (api call creates or returns namespace)
       local neotest_ns = vim.api.nvim_create_namespace "neotest"
       vim.diagnostic.config({
         virtual_text = {
@@ -191,8 +203,8 @@ return {
         },
       }, neotest_ns)
       require("neotest").setup {
-        -- your neotest config here
         adapters = {
+          require "rustaceanvim.neotest",
           require "neotest-go",
         },
       }
@@ -202,14 +214,18 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-neotest/neotest-go",
+      "mrcjkb/rustaceanvim",
     },
   },
   {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-      vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
-      vim.keymap.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", {})
+    opts = function()
+      return require "nvchad.configs.gitsigns"
+    end,
+    config = function(_, opts)
+      require("gitsigns").setup(opts)
+      vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
+      vim.keymap.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle blame" })
     end,
   },
   {
@@ -221,7 +237,6 @@ return {
       "LazyGitFilter",
       "LazyGitFilterCurrentFile",
     },
-    -- optional for floating window border decoration
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
@@ -232,7 +247,20 @@ return {
   },
   {
     "cordx56/rustowl",
-    dependencies = { "neovim/nvim-lspconfig" }
+    version = "*",
+    ft = { "rust" },
+    opts = function()
+      local installed = vim.fn.executable("rustowl") == 1
+      if not installed then
+        vim.notify_once(
+          "rustowl: binary not found. Run `:Lazy build rustowl` or `cargo install rustowl`.",
+          vim.log.levels.WARN
+        )
+      end
+      return {
+        auto_attach = installed,
+      }
+    end,
   },
   {
     "aspeddro/gitui.nvim",

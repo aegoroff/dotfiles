@@ -1,57 +1,44 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
--- EXAMPLE
-local servers = { "html", "cssls", "gopls", "vuels", "angularls", "zls", "bashls" }
-local nvlsp = require "nvchad.configs.lspconfig"
+local servers = { "html", "cssls", "gopls", "vue_ls", "angularls", "zls", "bashls", "ts_ls", "vtsls", "clangd" }
 
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  vim.lsp.config(lsp, {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  })
+local function vue_language_server_path()
+  return vim.fs.joinpath(
+    vim.fn.stdpath "data",
+    "mason",
+    "packages",
+    "vue-language-server",
+    "node_modules",
+    "@vue",
+    "language-server"
+  )
 end
 
-local on_attach = nvlsp.on_attach
-local capabilities = nvlsp.capabilities
-
-local function organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(0) },
-  }
-  vim.lsp.buf.execute_command(params)
-end
-
-vim.lsp.config('ts_ls', {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    preferences = {
-      disableSuggestions = false,
+vim.lsp.config("vtsls", {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          {
+            name = "@vue/typescript-plugin",
+            location = vue_language_server_path(),
+            languages = { "vue" },
+            configNamespace = "typescript",
+          },
+        },
+      },
     },
   },
-  commands = {
-    OrganizeImports = {
-      organize_imports,
-      description = "Organize Imports",
-    },
-  },
+  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 })
 
-vim.lsp.config('clangd', {
+vim.lsp.config("clangd", {
   on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
-    on_attach(client, bufnr)
   end,
-  capabilities = capabilities,
   init_options = {
-    usePlaceholders = true,
-    completeUnimported = true,
     clangdFileStatus = true,
-    semanticHighlighting = true,
   },
   cmd = {
     "clangd",
@@ -62,3 +49,17 @@ vim.lsp.config('clangd', {
     "--function-arg-placeholders=1",
   },
 })
+
+vim.lsp.config("bashls", {
+  root_dir = function(bufnr, on_dir)
+    local path = vim.api.nvim_buf_get_name(bufnr)
+    if path == "" then
+      return on_dir(vim.uv.cwd())
+    end
+    on_dir(vim.fs.root(path, { ".git" }) or vim.fs.dirname(path))
+  end,
+})
+
+for _, lsp in ipairs(servers) do
+  vim.lsp.enable(lsp)
+end

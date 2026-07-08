@@ -6,13 +6,7 @@ dap.adapters["pwa-node"] = {
   port = 8123,
   executable = {
     command = "js-debug-adapter",
-  }
-}
-
-dap.adapters.codelldb = {
-  type = 'server',
-  host = '127.0.0.1',
-  port = 13000
+  },
 }
 
 for _, language in ipairs { "typescript", "javascript" } do
@@ -27,5 +21,3 @@ for _, language in ipairs { "typescript", "javascript" } do
     },
   }
 end
-
-
