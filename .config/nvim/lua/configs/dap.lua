@@ -9,6 +9,18 @@ local function zig_program()
   return vim.fn.input("Path to executable: ", default, "file")
 end
 
+local function native_program()
+  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+end
+
+local attach_codelldb = {
+  name = "Attach to process",
+  type = "codelldb",
+  request = "attach",
+  processId = require("dap.utils").pick_process,
+  cwd = "${workspaceFolder}",
+}
+
 dap.adapters.codelldb = {
   type = "server",
   port = "${port}",
@@ -57,14 +69,33 @@ dap.configurations.zig = {
       return vim.split(vim.fn.input("Args: "), "%s+", { trimempty = true })
     end,
   },
-  {
-    name = "Attach to process",
-    type = "codelldb",
-    request = "attach",
-    processId = require("dap.utils").pick_process,
-    cwd = "${workspaceFolder}",
-  },
+  attach_codelldb,
 }
+
+dap.configurations.c = {
+  {
+    name = "Launch",
+    type = "codelldb",
+    request = "launch",
+    program = native_program,
+    cwd = "${workspaceFolder}",
+    stopOnEntry = false,
+    args = {},
+  },
+  {
+    name = "Launch (args)",
+    type = "codelldb",
+    request = "launch",
+    program = native_program,
+    cwd = "${workspaceFolder}",
+    stopOnEntry = false,
+    args = function()
+      return vim.split(vim.fn.input("Args: "), "%s+", { trimempty = true })
+    end,
+  },
+  attach_codelldb,
+}
+dap.configurations.cpp = dap.configurations.c
 
 for _, language in ipairs { "typescript", "javascript" } do
   dap.configurations[language] = {

@@ -68,6 +68,7 @@ return {
     opts = {
       ensure_installed = {
         "codelldb",
+        "delve",
       },
     },
   },
@@ -92,16 +93,20 @@ return {
     end,
   },
   {
-    "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return require "configs.null-ls"
-    end,
-  },
-  {
     "mrcjkb/rustaceanvim",
     version = "^8",
     lazy = false,
+    init = function()
+      vim.g.rustaceanvim = {
+        server = {
+          default_settings = {
+            ["rust-analyzer"] = {
+              check = { command = "clippy" },
+            },
+          },
+        },
+      }
+    end,
   },
   {
     "rust-lang/rust.vim",
@@ -119,6 +124,27 @@ return {
     config = function()
       require "configs.dap"
     end,
+  },
+  {
+    "leoluz/nvim-dap-go",
+    ft = "go",
+    dependencies = { "mfussenegger/nvim-dap" },
+    opts = {},
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    event = "VeryLazy",
+    dependencies = { "mfussenegger/nvim-dap" },
+    opts = {},
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
   {
     "saecki/crates.nvim",

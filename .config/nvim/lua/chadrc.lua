@@ -14,7 +14,7 @@ M.base46 = {
 }
 
 M.mason = {
-  pkgs = { "prettier", "shfmt", "clang-format", "stylua" },
+  pkgs = { "prettier", "shfmt", "clang-format", "stylua", "goimports", "gofumpt" },
 }
 
 return M
