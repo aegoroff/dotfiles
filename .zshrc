@@ -30,3 +30,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/egr/.opencode/bin:$PATH
+
+# Added by codebase-memory-mcp install
+export PATH="/home/egr/.local/bin:$PATH"
