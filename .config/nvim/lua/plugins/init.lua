@@ -76,7 +76,6 @@ return {
     branch = "main",
     build = ":TSUpdate",
     lazy = false,
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo", "TSUpdate" },
     opts = function()
       return require "configs.treesitter"
     end,
@@ -103,7 +102,6 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^8",
     lazy = false,
-    ft = "rust",
   },
   {
     "rust-lang/rust.vim",
@@ -200,15 +198,16 @@ return {
       require("neotest").setup {
         adapters = {
           require "rustaceanvim.neotest",
-          require "neotest-go",
+          require "neotest-golang",
         },
       }
     end,
     dependencies = {
+      "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-go",
+      { "fredrikaverpil/neotest-golang", version = "*" },
       "mrcjkb/rustaceanvim",
     },
   },
@@ -243,12 +242,13 @@ return {
   {
     "cordx56/rustowl",
     version = "*",
+    build = "cargo install rustowl",
     ft = { "rust" },
     opts = function()
       local installed = vim.fn.executable("rustowl") == 1
       if not installed then
         vim.notify_once(
-          "rustowl: binary not found. Run `:Lazy build rustowl` or `cargo install rustowl`.",
+          "rustowl: binary not found. Run `:Lazy build rustowl`.",
           vim.log.levels.WARN
         )
       end

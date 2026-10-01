@@ -34,8 +34,8 @@ vim.lsp.config("vtsls", {
 })
 
 vim.lsp.config("clangd", {
-  on_attach = function(client, bufnr)
-    client.server_capabilities.signatureHelpProvider = false
+  on_attach = function(client)
+    client.server_capabilities.signatureHelpProvider = nil
   end,
   init_options = {
     clangdFileStatus = true,
