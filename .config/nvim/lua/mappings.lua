@@ -9,6 +9,18 @@ map("i", "jk", "<ESC>")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
+-- blank border in the float's own bg = 1-cell padding around hover text
+local pad = { " ", "NormalFloat" }
+local padded_border = { pad, pad, pad, pad, pad, pad, pad, pad }
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    map("n", "K", function()
+      vim.lsp.buf.hover { border = padded_border }
+    end, { buffer = args.buf, desc = "LSP hover" })
+  end,
+})
+
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "Toggle breakpoint" })
 map("n", "<leader>dr", "<cmd> DapContinue <CR>", { desc = "Run or continue the debugger" })
 map("n", "<leader>dus", function ()
