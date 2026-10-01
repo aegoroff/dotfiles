@@ -13,4 +13,8 @@ M.base46 = {
   -- },
 }
 
+M.mason = {
+  pkgs = { "prettier", "shfmt", "clang-format", "stylua" },
+}
+
 return M

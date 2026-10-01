@@ -1,7 +1,7 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local servers = { "html", "cssls", "gopls", "vue_ls", "angularls", "zls", "bashls", "ts_ls", "vtsls", "clangd" }
+local servers = { "html", "cssls", "gopls", "vue_ls", "angularls", "zls", "bashls", "vtsls", "clangd" }
 
 local function vue_language_server_path()
   return vim.fs.joinpath(

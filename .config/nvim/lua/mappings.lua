@@ -18,7 +18,7 @@ map("n", "<leader>dus", function ()
 end, { desc = "Open debugging sidebar" })
 map("n", "<leader>gl", ":Flog<CR>", { desc = "Git Log" })
 map("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Git File History" })
-map("n", "<leader>gc", ":DiffviewOpen HEAD~2<CR>", { desc = "Git Last Commit" })
+map("n", "<leader>gc", ":DiffviewOpen HEAD~1<CR>", { desc = "Git Last Commit" })
 map("n", "<leader>tt", function()
     require("neotest").run.run()
 end, { desc = "Run nearest test" })
@@ -46,8 +46,3 @@ map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 map("n", "<leader>lt", function ()
   require("gitui").open()
 end, { desc = "Gitui" })
-
-map('n', "<leader>a", function ()
-      vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
-    -- or vim.lsp.buf.codeAction() if you don't want grouping.
-end, { desc = "Rust LSP" })

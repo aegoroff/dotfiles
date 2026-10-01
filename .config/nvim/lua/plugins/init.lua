@@ -24,6 +24,8 @@ return {
   },
   {
     "stevearc/conform.nvim",
+    event = "BufWritePre",
+    cmd = "ConformInfo",
     opts = require "configs.conform",
   },
   {
@@ -35,6 +37,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    event = "VeryLazy",
     dependencies = {
       "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
@@ -49,14 +52,8 @@ return {
         "angularls",
         "zls",
         "bashls",
-        "ts_ls",
         "clangd",
         "lua_ls",
-        "stylua",
-        "prettier",
-        "shfmt",
-        "clang_format",
-        "vue-language-server",
       },
       automatic_enable = false,
     },
@@ -130,6 +127,12 @@ return {
     ft = { "rust", "toml" },
     opts = {
       autoload = true,
+      lsp = {
+        enabled = true,
+        actions = true,
+        completion = true,
+        hover = true,
+      },
     },
   },
   {
@@ -152,14 +155,6 @@ return {
     end,
   },
   {
-    "hrsh7th/nvim-cmp",
-    opts = function()
-      local M = require "nvchad.configs.cmp"
-      table.insert(M.sources, { name = "crates" })
-      return M
-    end,
-  },
-  {
     "qnighy/lalrpop.vim",
     ft = { "lalrpop" },
   },
@@ -178,7 +173,7 @@ return {
     },
     lazy = false,
     opts = {
-      auto_enable = true,
+      autostart = true,
     },
   },
   {
