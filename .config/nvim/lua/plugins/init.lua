@@ -268,7 +268,21 @@ return {
   {
     "cordx56/rustowl",
     version = "*",
-    build = "cargo install rustowl",
+    -- shell builds inherit lazy's git.timeout (120s), too short to compile rustowl.
+    -- Install from the plugin dir so rustup picks up its pinned nightly (rustc-dev).
+    build = function(plugin)
+      local Async = require("lazy.async")
+      local done, result = false, nil
+      vim.system({ "cargo", "install", "--locked", "--path", "." }, { cwd = plugin.dir }, function(r)
+        result, done = r, true
+      end)
+      while not done do
+        Async.sleep(500)
+      end
+      if result.code ~= 0 then
+        error(result.stderr)
+      end
+    end,
     ft = { "rust" },
     opts = function()
       local installed = vim.fn.executable("rustowl") == 1
