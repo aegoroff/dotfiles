@@ -27,6 +27,15 @@ require("lazy").setup({
   { import = "plugins" },
 }, lazy_config)
 
+-- recompile base46 cache when chadrc.lua changed (e.g. after git pull)
+local chadrc = vim.fn.stdpath "config" .. "/lua/chadrc.lua"
+local stamp = vim.g.base46_cache .. "chadrc.sha256"
+local hash = vim.fn.sha256(table.concat(vim.fn.readfile(chadrc), "\n"))
+if vim.fn.filereadable(stamp) == 0 or vim.fn.readfile(stamp)[1] ~= hash then
+  require("base46").load_all_highlights()
+  vim.fn.writefile({ hash }, stamp)
+end
+
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
