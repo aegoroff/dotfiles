@@ -9,6 +9,7 @@ return {
   },
   {
     "nvchad/base46",
+    branch = "v3.0",
     lazy = true,
     build = function()
       require("base46").load_all_highlights()
@@ -94,6 +95,7 @@ return {
   },
   {
     "mrcjkb/rustaceanvim",
+    branch = "main",
     version = "^8",
     lazy = false,
     init = function()
@@ -110,6 +112,7 @@ return {
   },
   {
     "rust-lang/rust.vim",
+    branch = "main",
     ft = "rust",
   },
   {
