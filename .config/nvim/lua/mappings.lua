@@ -9,6 +9,49 @@ map("i", "jk", "<ESC>")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
+-- theme picker with the cursor on the current theme
+map("n", "<leader>th", function()
+  require("nvchad.themes").open()
+
+  local state = require "nvchad.themes.state"
+
+  local function select_current()
+    local idx = vim.fn.index(state.themes_shown, require("nvconfig").base46.theme) + 1
+    if idx < 1 then
+      return
+    end
+
+    state.index = idx
+    state.active_theme = state.themes_shown[idx]
+    require("volt").redraw(state.buf, "all")
+
+    -- same scroll offset move_down would have reached from the top
+    local scrolls = math.max(0, idx - state.limit[state.style] + 1)
+    if scrolls > 0 then
+      state.scrolled = true
+      vim.api.nvim_win_call(state.win, function()
+        local top = 1 + scrolls * state.scroll_step[state.style]
+        vim.fn.winrestview { topline = top, lnum = top }
+      end)
+    end
+  end
+
+  select_current()
+
+  -- the picker's own TextChangedI fires once on startinsert and resets the
+  -- selection to the first theme, so select again right after it
+  vim.api.nvim_create_autocmd("TextChangedI", {
+    buffer = state.input_buf,
+    once = true,
+    callback = function()
+      local input = vim.api.nvim_get_current_line():sub(vim.api.nvim_strwidth(state.prompt) + 1)
+      if input:match "^%s*$" then
+        select_current()
+      end
+    end,
+  })
+end, { desc = "telescope nvchad themes" })
+
 -- blank border in the float's own bg = 1-cell padding around hover text
 local pad = { " ", "NormalFloat" }
 local padded_border = { pad, pad, pad, pad, pad, pad, pad, pad }
